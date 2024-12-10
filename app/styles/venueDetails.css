@@ -1,0 +1,138 @@
+.venue-details {
+  margin: 30px 60px;
+}
+.img-container {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr;
+  grid-template-rows: 200px 200px;
+  gap: 20px;
+}
+
+.large {
+  grid-row: span 2;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  border-radius: 5px;
+}
+
+.seemore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.seemore span {
+  font-size: large;
+  position: absolute;
+  color: #cf1839;
+}
+
+.seemore img {
+  filter: brightness(30%);
+}
+
+.details {
+  border: 1px solid #777777;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 0 2rem;
+}
+.venue-details h1 {
+  color: #cf1839;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.det {
+  margin: 2rem 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  color: #626262;
+  font-size: 20px;
+}
+.title {
+  color: black;
+  font-size: large;
+  font-weight: bolder;
+  margin: 8px 0;
+}
+.event-calendar {
+  background-color: #cf183a;
+  width: 400px;
+  height: 250px;
+  margin: 35px auto;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.btn button {
+  background-color: #cf183a;
+  color: white;
+  border: #cf183a;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: white;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  height: 80%;
+  width: 70%;
+  border-radius: 5px;
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: scroll;
+}
+
+.modal-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 25px;
+  padding: 15px;
+  width: auto;
+}
+button[role="button"] {
+  background-color: #cf1839;
+  border: #cf1839;
+  padding: 3px;
+  border-radius: 3px;
+  width: 40px;
+  position: absolute;
+  right: 2%;
+  top: 2%;
+}
+.modal-close {
+  background-color: #cf1839;
+  border: #cf1839;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-top: 15px;
+}
