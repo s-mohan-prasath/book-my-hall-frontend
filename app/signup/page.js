@@ -18,7 +18,7 @@ export default function SignIn() {
             return;
         }
         try {
-            let response = await fetch('http://localhost:5000/auth/signup', {
+            let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
                 method: "POST",
                 body: JSON.stringify({
                     name, email, password, phoneNumber
