@@ -6,7 +6,7 @@ export async function middleware(request) {
     const { pathname } = request.nextUrl;
 
     const adminAuthToken = request.cookies.get("admin_auth_token"); // Admin token
-    const userAuthToken = request.cookies.get("auth_token"); // Normal user token
+    const userAuthToken = request.cookies.get("auth_token"); // Normal user token.
 
     try {
         // Admin Route Validation
