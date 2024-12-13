@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function Dashboard({ events }) {
     const totalEvents = events.length;
-    const confirmedEvents = events.filter(event => event.status === "confirmed").length;
-    const pendingEvents = events.filter(event => !event.status).length;
+    const confirmedEvents = events.filter(event => event.status === "accepted").length;
+    const pendingEvents = events.filter(event => event.status === "pending").length;
     const declinedEvents = events.filter(event => event.status === "declined").length;
 
     return (

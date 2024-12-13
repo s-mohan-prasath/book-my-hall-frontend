@@ -29,7 +29,7 @@ export default function BookingForm({ venueId, isOpen, onOpenChange, scrollBehav
         try {
             const authToken = Cookies.get("auth_token");
 
-            const response = await fetch("http://localhost:5000/booking/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -60,11 +60,11 @@ export default function BookingForm({ venueId, isOpen, onOpenChange, scrollBehav
             scrollBehavior={scrollBehavior}
             isDismissable={false}
         >
-            <ModalContent className='bg-white p-5 max-h-[95%] max-w-[85%] rounded text-center '>
+            <ModalContent className='bg-white sm:p-5 max-h-[95%] max-w-[85%] rounded text-center '>
                 {(onClose) => (
                     <>
-                        <ModalBody className='modal-body'>
-                            <form onSubmit={handleSubmit} className="shadow-custom w-64 sm-w-80 border-3 border-primary-dark md:w-[50%] bg-primary-sign my-[10vh] mx-auto rounded-md p-8">
+                        <ModalBody className='modal-body w-full'>
+                            <form onSubmit={handleSubmit} className="shadow-custom max-w-[100%] border-3 border-primary-dark  bg-primary-sign my-[10vh] rounded-md p-8">
                                 <h1 className='text-primary mb-8 text-3xl font-bold'>Booking Form</h1>
                                 <div className="flex flex-col mb-4">
                                     <label className="w-full mb-1 text-start font-semibold" htmlFor="ename">Event Name</label>

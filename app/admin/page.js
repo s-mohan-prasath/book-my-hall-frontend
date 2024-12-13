@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import AddVenueModal from './addVenues.js';
 import Dashboard from './dashboard.js';
 import BookingsTab from './bookings.js';
@@ -11,26 +12,49 @@ export default function Admin() {
     const [activeTab, setActiveTab] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
     const [filterStatus, setFilterStatus] = useState("pending");
+    const [events, setEvents] = useState([]);
 
-    const eventsData = [
-        { name: "Jane Smith", hall: "Conference Room", email: "example2@example.com", eventName: "Tech Conference", phoneNumber: "234-567-8901" },
-        { name: "Mike Johnson", hall: "Banquet Hall", email: "example3@example.com", eventName: "Birthday Party", phoneNumber: "345-678-9012" },
-        { name: "Alice Williams", hall: "Ballroom", email: "alice@example.com", eventName: "Gala Dinner", phoneNumber: "456-789-0123" },
-        { name: "Emily Davis", hall: "Meeting Room A", email: "emily@example.com", eventName: "Business Workshop", phoneNumber: "678-901-2345" },
-        { name: "Chris Martin", hall: "Outdoor Pavilion", email: "chris@example.com", eventName: "Music Concert", phoneNumber: "789-012-3456" },
-        { name: "Olivia Lee", hall: "Lounge Area", email: "olivia@example.com", eventName: "Networking Event", phoneNumber: "890-123-4567" },
-        { name: "David Harris", hall: "Small Conference Room", email: "david@example.com", eventName: "Team Meeting", phoneNumber: "901-234-5678" },
-        { name: "Sophia Wilson", hall: "Rooftop Terrace", email: "sophia@example.com", eventName: "Sunset Party", phoneNumber: "012-345-6789" }
-    ];
+    // Fetch events when the component mounts
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const adminAuthToken = Cookies.get("admin_auth_token");
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/booking/`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${adminAuthToken}`,
+                    },
+                });
 
-    const [events, setEvents] = useState(eventsData.map(event => ({ ...event, status: null })));
+                const data = await response.json();
+                if (response.ok) {
+                    setEvents(data.bookings);
+                } else {
+                    console.error("Failed to fetch bookings:", data.error);
+                }
+            } catch (error) {
+                console.error("Error fetching bookings:", error);
+            }
+        };
+
+        fetchBookings();
+    }, []);
+
+    const updateEvents = (updatedEvent) => {
+        // Update events state when a booking is confirmed or declined
+        const updatedEvents = events.map((event) =>
+            event._id === updatedEvent._id ? updatedEvent : event
+        );
+        setEvents(updatedEvents);
+    };
 
     const tabs = [
         { name: "Dashboard", content: <Dashboard events={events} /> },
-        { name: "Bookings", content: null },
-        { name: "Accepted Bookings", content: null },
-        { name: "Users", content: null },
-        { name: "Venues", content: null },
+        { name: "Bookings", content: <BookingsTab events={events} updateEvents={updateEvents} searchTerm={searchTerm} filterStatus={filterStatus} /> },
+        { name: "Accepted Bookings", content: <AcceptedBookingsTab events={events} searchTerm={searchTerm} /> },
+        { name: "Users", content: <UsersTab searchTerm={searchTerm} /> },
+        { name: "Venues", content: <VenuesTab /> },
     ];
 
     const renderSearchAndFilter = () => (
@@ -59,7 +83,7 @@ export default function Admin() {
 
     return (
         <div className="m-0 p-0 w-full">
-            <div className="bg-black p-5 flex flex-wrap gap-2 justify-center">
+            <div className="bg-black p-5 pt-0 flex flex-wrap gap-2 justify-center">
                 {tabs.map((tab, index) => (
                     <button
                         key={index}
@@ -77,31 +101,9 @@ export default function Admin() {
             </div>
 
             <div className="mt-10 p-5 md:w-full mx-auto rounded">
-                {/* Add search functionality for Bookings and Users */}
                 {(activeTab === 1 || activeTab === 2 || activeTab === 3) && renderSearchAndFilter()}
 
-                {activeTab === 0 ? (
-                    tabs[activeTab].content
-                ) : activeTab === 1 ? (
-                    <BookingsTab
-                        searchTerm={searchTerm}
-                        filterStatus={filterStatus}
-                    />
-                ) : activeTab === 2 ? (
-                    <AcceptedBookingsTab
-                        events={events}
-                        searchTerm={searchTerm}
-                    />
-                ) : activeTab === 3 ? (
-                    <UsersTab
-                        searchTerm={searchTerm}
-                    // usersData={eventsData}
-                    />
-                ) : activeTab === 4 ? (
-                    <VenuesTab /> // Replace previous venues rendering with VenuesTab component
-                ) : (
-                    <p>{tabs[activeTab].content}</p>
-                )}
+                {tabs[activeTab].content}
             </div>
         </div>
     );

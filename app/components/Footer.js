@@ -26,7 +26,6 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="footer-right">
-                    <h6 className="footer-sitemap-title">Sitemap</h6>
                     <ul className="footer-sitemap-list">
                         <li><Link href="/">Home</Link></li>
                         <li><Link href="/venueList">Venues</Link></li>

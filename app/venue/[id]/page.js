@@ -28,7 +28,7 @@ export default function VenuePage({ params }) {
                         Authorization: `Bearer ${authToken}`
                     },
                 };
-                const res = await fetch(`http://localhost:5000/venue/${id}`, requestOptions);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/venue/${id}`, requestOptions);
                 const venueData = await res.json();
                 setVenue(venueData?.venue);
             } catch (error) {

@@ -11,7 +11,7 @@ export default function UsersTab({ searchTerm }) {
             try {
                 const adminAuthToken = Cookies.get("admin_auth_token");
                 // Replace with your actual backend API endpoint
-                const response = await fetch('http://localhost:5000/admin/users', {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${adminAuthToken}`, // Assuming you store JWT in localStorage

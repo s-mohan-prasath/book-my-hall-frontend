@@ -1,12 +1,12 @@
-const {nextui} = require('@nextui-org/theme');
+const { nextui } = require('@nextui-org/theme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(avatar|dropdown|modal|menu|divider|popover|button|ripple|spinner).js"
-  ],
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./node_modules/@nextui-org/theme/dist/components/(avatar|dropdown|modal|menu|divider|popover|button|ripple|spinner).js"
+    ],
     theme: {
         extend: {
             boxShadow: {
@@ -32,7 +32,10 @@ module.exports = {
                 right: 'right',
                 left: 'left',
             },
+            backgroundImage: {
+                'custom-gradient': 'linear-gradient(45deg, #f7002e, #f01d44, #ff012f)',
+            },
         },
     },
-  plugins: [nextui()],
+    plugins: [nextui()],
 };
